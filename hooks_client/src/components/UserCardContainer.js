@@ -5,8 +5,11 @@ import UserCard from './UserCard';
 
 const UserCardContainer = ({ users }) => (
   <div className="userCardContainer">
-    { users && users.map(({ name, info, isBig }) => (
+    { users && users.map(({
+      name, info, isBig, id,
+    }) => (
       <UserCard
+        key={id}
         name={name}
         info={info}
         isBig={isBig}
