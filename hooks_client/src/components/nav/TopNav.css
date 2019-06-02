@@ -1,0 +1,21 @@
+#top-nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
+  display: flex;
+}
+
+#top-nav li {
+  padding: 1em;
+}
+
+#top-nav a {
+  display: inline-block;
+  font-size: 1.2em;
+  letter-spacing: 0.1em;
+  color: orange;
+  text-decoration: none;
+  list-style-type: none;
+}

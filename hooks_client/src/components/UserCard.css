@@ -1,0 +1,19 @@
+/* .userCardContainer is likely to be a child of a flex box  */
+.userCardContainer {
+  border: 2px solid yellow;
+  margin: auto;
+  width: 90%;
+  display: flex;
+  padding: 1em;
+}
+
+.userCard {
+  padding: 1em;
+  border: 1px solid blue;
+  background-color: rgba(0, 0, 255, 0.1);
+  flex: 1;
+}
+
+.userCard--big {
+  flex: 2;
+}
