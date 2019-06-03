@@ -1,33 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import UserCard from '../components/UserCard';
 
-const UserCardContainer = () => {
+const UserCardContainer = ({ users }) => {
   // initialize state with useState HOOK
-  const [userList, setUserList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
-  // useEffect HOOK for api call: empty array => componentDidMount()
-  useEffect(() => {
-    setIsLoading(true);
-
-    fetch('https://swapi.co/api/people/')
-      .then((response) => {
-        if (!response.ok) {
-          setIsLoading(false);
-          throw new Error('Failed to fetch users');
-        }
-        return response.json();
-      })
-      .then((people) => {
-        const chosenOnes = people.results.slice(0, 5);
-        setUserList(chosenOnes);
-        setIsLoading(false);
-      });
-  }, []);
-
-  const content = !isLoading ? (
+  const content = (
     <div className="userCardContainer">
-      { userList.map(({
+      { users.map(({
         name, info, isBig, id, height, mass,
       }) => (
         <UserCard
@@ -39,13 +19,13 @@ const UserCardContainer = () => {
       ))
       }
     </div>
-  ) : (
-    <div>
-      <p>Loading...</p>
-    </div>
   );
 
   return content;
 };
 
 export default UserCardContainer;
+
+UserCardContainer.propTypes = {
+  users: PropTypes.arrayOf(PropTypes.object.isRequired),
+};
