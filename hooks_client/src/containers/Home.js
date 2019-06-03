@@ -23,7 +23,7 @@ const Home = () => {
     <div id="home">
       <h1>Home</h1>
       <p>Welcome home, User</p>
-      <button onClick={handleClick} type="button">Show Users</button>
+      <button onClick={handleClick} type="button">Fetch Users</button>
       {renderCards}
     </div>
   );
