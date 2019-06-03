@@ -17,8 +17,8 @@ const UserCardContainer = ({ users }) => {
         return response.json();
       })
       .then((formattedResponse) => {
-        console.log('formatted resp: ', formattedResponse);
-        setUsersList(formattedResponse);
+        console.log('formatted resp: ', formattedResponse.results);
+        setUsersList(formattedResponse.results);
       });
   };
 
@@ -29,14 +29,14 @@ const UserCardContainer = ({ users }) => {
 
   return (
     <div className="userCardContainer">
-      <button type="button" onClick={handleClick}>Swap users to API</button>
+      <button className="userCardContainer_button" type="button" onClick={handleClick}>Swap to API</button>
       { users && users.map(({
-        name, info, isBig, id,
+        name, info, isBig, id, height, mass,
       }) => (
         <UserCard
-          key={id}
+          key={id || name}
           name={name}
-          info={info}
+          info={info || `${name} is ${height}cm tall and has a mass of ${mass}`}
           isBig={isBig}
         />
       ))
