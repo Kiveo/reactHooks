@@ -8,12 +8,8 @@ const Home = () => {
   const [showUsers, setShowUsers] = useState(false);
 
   const handleClick = () => {
-    if (showUsers) {
-      setInvisibleInk('Deactivated');
-    } else {
-      setInvisibleInk('Activated');
-    }
-    setShowUsers(!showUsers);
+    setShowUsers(true);
+    setInvisibleInk('Activated');
   };
 
   console.log('Invisible Ink Reads: ', invisisbleInk);
