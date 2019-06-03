@@ -36,12 +36,12 @@ const Home = () => {
       <p>Welcome home, User</p>
       <button onClick={handleClick} type="button">Show Users</button>
       { showUsers
-      && (
+        && (
         <UserCardContainer
           users={sampleUserArray}
         />
-      )
-    }
+        )
+      }
     </div>
   );
 };

@@ -6,9 +6,12 @@ import UserCard from './UserCard';
 
 const UserCardContainer = ({ users }) => {
   // initialize state with useState Hook
-  const [usersList, setUsersList] = useState([users]);
+  const [userList, setUserList] = useState([users]);
+  const [isLoading, setIsLoading] = useState(false);
 
+  // TODO couple fetchUsers to HOOK version of componentDidMount()
   const fetchUsers = () => {
+    console.log('Fetch Called');
     fetch('https://swapi.co/api/people/')
       .then((response) => {
         if (!response.ok) {
@@ -18,7 +21,7 @@ const UserCardContainer = ({ users }) => {
       })
       .then((formattedResponse) => {
         console.log('formatted resp: ', formattedResponse.results);
-        setUsersList(formattedResponse.results);
+        setUserList(formattedResponse.results);
       });
   };
 
@@ -27,10 +30,12 @@ const UserCardContainer = ({ users }) => {
     return fetchUsers();
   };
 
-  return (
+  const content = isLoading ? (
     <div className="userCardContainer">
-      <button className="userCardContainer_button" type="button" onClick={handleClick}>Swap to API</button>
-      { users && users.map(({
+      { !isLoading
+        && <span className="userCardContainer_button">NOT LOADED YET</span>
+      }
+      { userList.map(({
         name, info, isBig, id, height, mass,
       }) => (
         <UserCard
@@ -42,7 +47,14 @@ const UserCardContainer = ({ users }) => {
       ))
       }
     </div>
+  ) : (
+    <div>
+      <p>Loading...</p>
+      <button className="userCardContainer_button" type="button" onClick={handleClick}>Swap to API</button>
+    </div>
   );
+
+  return content;
 };
 
 export default UserCardContainer;
