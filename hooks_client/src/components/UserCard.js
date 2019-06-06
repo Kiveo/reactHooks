@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './UserCard.css';
 
 const UserCard = (props) => {
   const { name, info, isBig } = props;
