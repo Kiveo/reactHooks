@@ -10,7 +10,7 @@ function TopNav() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="/upload">Upload</Link>
           </li>
           <li>
             <Link to="/users">Users</Link>

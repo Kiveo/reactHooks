@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Header from './Header';
 
 const User = ({ match, location }) => {
   const [user, setUser] = useState({});
@@ -14,13 +15,13 @@ const User = ({ match, location }) => {
   }, [location.state]);
 
   const renderContent = (
-    (match.params.id === user.id) ? (
+    (user.name) ? (
       <Fragment>
-        <h1>{`User Link: ${match.params.id}`}</h1>
-        {user && <h3>{`User Name: ${user.name}`}</h3>}
+        <Header>{`User Link: ${match.params.id}`}</Header>
+        {user && <Header size="h2">{`User Name: ${user.name}`}</Header>}
       </Fragment>
     ) : (
-      <h1>No Such User</h1>
+      <Header>No Such User</Header>
     )
   );
   const content = loading
