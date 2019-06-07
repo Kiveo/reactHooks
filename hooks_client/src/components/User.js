@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const User = ({ match, location }) => {
@@ -7,18 +7,25 @@ const User = ({ match, location }) => {
 
   useEffect(() => {
     setLoading(true);
-    setUser(location.state.user);
+    if (location.state && location.state.user) {
+      setUser(location.state.user);
+    }
     setLoading(false);
-  }, [location.state.user]);
+  }, [location.state]);
 
-  const content = loading
-    ? (<div>Loading User...</div>)
-    : (
-      <div>
+  const renderContent = (
+    (match.params.id === user.id) ? (
+      <Fragment>
         <h1>{`User Link: ${match.params.id}`}</h1>
         {user && <h3>{`User Name: ${user.name}`}</h3>}
-      </div>
-    );
+      </Fragment>
+    ) : (
+      <h1>No Such User</h1>
+    )
+  );
+  const content = loading
+    ? (<div>Loading User...</div>)
+    : renderContent;
   return content;
 };
 
