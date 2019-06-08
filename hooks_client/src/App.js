@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Dropzone from './containers/Dropzone';
+import DropzoneArea from './containers/DropzoneArea';
 import TopNav from './components/nav/TopNav';
 import NoMatch from './components/nav/NoMatch';
 import UsersNav from './containers/UsersNav';
@@ -12,7 +12,7 @@ const App = () => (
     <TopNav />
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/upload" component={Dropzone} />
+      <Route exact path="/upload" component={DropzoneArea} />
       <Route path="/users" component={UsersNav} />
       <Route component={NoMatch} />
     </Switch>
