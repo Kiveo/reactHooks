@@ -4,14 +4,15 @@ import uploadIcon from '../assets/images/cloudUpload.png';
 import Attachment from './Attachment';
 
 const DropZone = ({ handleFile, children }) => {
+  // -- State --
   const [fileArray, setFileArray] = useState([]);
   const [hoverState, setHoverState] = useState(false);
   const [count, setCount] = useState(0);
-
+  // -- Styles --
   const divStyle = { display: 'flex', background: 'rba(200,255,200,0.5' };
   const divStyleHover = { display: 'flex', background: 'rba(255,255,255,0.5', border: '3px dashed' };
   const imgStyle = { padding: '1em', width: '3em', height: '3em' };
-
+  // -- Events & Refs --
   const inputRef = React.createRef();
   const nullifyEvent = (e) => { e.preventDefault(); setHoverState(true); };
   const handleExit = () => { setHoverState(false); };
@@ -36,7 +37,13 @@ const DropZone = ({ handleFile, children }) => {
     }
     (setCount(count + 1));
   };
+  // -- Prop & Children Functions --
+  const removeFile = (item) => {
+    const newArray = fileArray.filter(element => element !== item);
+    setFileArray(newArray);
+  };
 
+  // -- Render --
   return (
     <div id="DropZone">
       <div
@@ -60,6 +67,7 @@ const DropZone = ({ handleFile, children }) => {
         <span key={f.size}>
           <Attachment
             attachment={f}
+            removeFile={removeFile}
           />
           {/* // TODO Enable delete/remove selected upload (preferably after form upload ie not just selection) */}
         </span>
