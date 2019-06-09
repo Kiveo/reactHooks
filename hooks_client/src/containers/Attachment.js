@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import ProgressBar from '../components/ProgressBar';
 
 const Attachment = ({ attachment, removeFile }) => {
   const [imgRef] = useState(React.createRef());
@@ -10,16 +11,16 @@ const Attachment = ({ attachment, removeFile }) => {
     // BEGIN FILE READER
     const file = attachment;
     const reader = new FileReader();
-    // ? set up functional progress indicator
+
+    // listen for progress updates
     reader.addEventListener('progress', (val) => {
-      // console.log(`PERCENT: ${(Math.floor(val.loaded) / val.total) * 100}%`);
       const percentage = (Math.floor(val.loaded) / val.total) * 100;
       setPercent(percentage);
     }, true);
 
     // once finished loading fileread, set image preview source
     reader.addEventListener('load', () => {
-      imgRef.current.src = reader.result;
+      if (file.type.includes('image')) { imgRef.current.src = reader.result; }
     }, true);
     if (file) {
       reader.readAsDataURL(file);
@@ -34,9 +35,9 @@ const Attachment = ({ attachment, removeFile }) => {
   return (
     <div>
       <Header size="h4">
-        <img ref={imgRef} alt="previous" style={{ width: '50px', height: '50px' }} />
+        <img ref={imgRef} alt="Preview" style={{ width: '50px', height: '50px' }} />
         {`Attachment: ${attachment.name}: `}
-        <progress value={percent} max={100} />
+        <ProgressBar percent={percent} />
         <button onClick={removeAttachment} type="button">X</button>
       </Header>
     </div>
