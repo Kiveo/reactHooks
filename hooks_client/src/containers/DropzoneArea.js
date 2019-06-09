@@ -6,12 +6,12 @@ const DropzoneArea = () => {
   const content = (
     <Fragment>
       <Header>Dropzone</Header>
-      <p>Let's mimic a drop zone</p>
+      <p>Use the dropzone below to drag and drop images</p>
       <hr />
       <div style={{ background: 'rgba(200,200,255,0.5)', border: '1px dotted green' }}>
-        <DropZone
-          handleDrop={() => console.log('HANDLED')}
-        />
+        {/* // TODO determine best placement and use for handleFile prop, if any */}
+        {/* // ? Optional handleFile() function pass to DropZone */}
+        <DropZone />
       </div>
     </Fragment>
   );
