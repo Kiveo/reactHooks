@@ -10,21 +10,21 @@ Version 4.0 will focus on polishing a business goal and look.
 
 V1.0 Initial Goals
 -------------
-Goal: Avoid using even a single class based component. -Completed v1.0 
-Goal: Utilize React Hooks -Completed v1.0 
-Goal: Create a custom file dropzone -Completed v1.0
-Goal: Create a dynamic progress bar for selected files -Completed v1.0
+Goal: Avoid using even a single class based component. -Completed v1.0  
+Goal: Utilize React Hooks -Completed v1.0  
+Goal: Create a custom file dropzone -Completed v1.0  
+Goal: Create a dynamic progress bar for selected files -Completed v1.0  
 
 Aux Goals
 ---------
-Goal: Choose and implement a CSS technique, such as in-line, js in css, etc. -Incomplete
-Goal: Create a progress bar based on an API response -In Progress
+Goal: Choose and implement a CSS technique, such as in-line, js in css, etc. -Incomplete  
+Goal: Create a progress bar based on an API response -In Progress  
 
 Misc Info
 ---------
--Makes use of a free api source, as of v1.0
+-Makes use of a free api source, as of v1.0  
 
 Developer List 
 ---------------
-Maverick Tesini -v1.0
+Maverick Tesini -v1.0  
 
