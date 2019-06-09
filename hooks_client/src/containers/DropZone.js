@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import uploadIcon from '../assets/images/cloudUpload.png';
 import Attachment from './Attachment';
 
+// TODO add fetch/xml requests to upload/delete files on an API
 const DropZone = ({ handleFile, children }) => {
   // -- State --
   const [fileArray, setFileArray] = useState([]);
   const [hoverState, setHoverState] = useState(false);
   const [count, setCount] = useState(0);
+  const [warning, setWarning] = useState();
   // -- Styles --
   const divStyle = { display: 'flex', background: 'rba(200,255,200,0.5' };
   const divStyleHover = { display: 'flex', background: 'rba(255,255,255,0.5', border: '3px dashed' };
@@ -19,28 +21,34 @@ const DropZone = ({ handleFile, children }) => {
   const handleClick = (e) => { inputRef.current.click(e); };
   const handleChange = () => {
     // handle events where user cancels selection
-    if (!inputRef.current.files[0]) { return console.log('BREAK'); }
+    if (!inputRef.current.files[0]) { return setWarning(''); }
     // check prex-exiting file in fileArray
-    if (inputRef.current.files[0] && fileArray.filter(fn => fn.name === inputRef.current.files[0].name).length >= 1) { console.log('WARNING'); return; }
+    if (inputRef.current.files[0] && fileArray.filter(fn => fn.name === inputRef.current.files[0].name).length >= 1) {
+      return setWarning('Warning: File already selected');
+    }
     setFileArray([...fileArray, inputRef.current.files[0]]);
     // ? If user provides handleFile(), then invoke after local state set
     if (handleFile) { handleFile(); }
-    return (setCount(count + 1));
+    return (setCount(count + 1), setWarning(null));
   };
   // handleDrop seems similar to change, but the file source changes between input and event
   const handleDrop = (e) => {
     e.preventDefault();
     if (e.dataTransfer && e.dataTransfer.files) {
       // check for pre-exiting file in fileArray
-      if ((fileArray.length > 1) && fileArray.filter(fn => fn.name === e.dataTransfer.files[0].name).length >= 1) { console.log('WARNING'); return; }
+      if ((fileArray.length > 1) && fileArray.filter(fn => fn.name === e.dataTransfer.files[0].name).length >= 1) {
+        return setWarning('Warning: File already selected');
+      }
       setFileArray([...fileArray, e.dataTransfer.files[0]]);
     }
-    (setCount(count + 1));
+    return (setCount(count + 1), setWarning(null));
   };
   // -- Prop & Children Functions --
   const removeFile = (item) => {
     const newArray = fileArray.filter(element => element !== item);
     setFileArray(newArray);
+    setCount(count - 1);
+    setWarning(null);
   };
 
   // -- Render --
@@ -60,16 +68,16 @@ const DropZone = ({ handleFile, children }) => {
         {children}
       </div>
       <button onClick={handleClick} type="button">Upload Image</button>
+      {warning && <span>{warning}</span>}
       <input type="file" ref={inputRef} onChange={handleChange} style={{ display: 'none', background: 'teal' }} />
       <hr />
-      <p>{`Files Select: ${count}`}</p>
+      <p>{`Files Selected: ${count}`}</p>
       { fileArray && fileArray.map(f => (
         <span key={f.size}>
           <Attachment
             attachment={f}
             removeFile={removeFile}
           />
-          {/* // TODO Enable delete/remove selected upload (preferably after form upload ie not just selection) */}
         </span>
       ))
       }

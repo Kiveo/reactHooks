@@ -27,7 +27,6 @@ const Attachment = ({ attachment, removeFile }) => {
     // END FILE READER
   }, [attachment, imgRef]);
 
-  // TODO implement removeAttachment
   const removeAttachment = () => {
     removeFile(attachment);
   };
