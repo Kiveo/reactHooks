@@ -3,10 +3,10 @@ reactHooks
 
 Description
 -----------
-Version 1.0 will be a bare functionality testground. :: CURRENT
-Version 2.0 will implement a design purpose and work toward a more beautiful presentation. 
-Version 3.0 will focus on additional features.
-Version 4.0 will focus on polishing a business goal and look.
+Version 1.0 will be a bare functionality testground. :: CURRENT  
+Version 2.0 will implement a design purpose and work toward a more beautiful presentation.  
+Version 3.0 will focus on additional features.  
+Version 4.0 will focus on polishing a business goal and look.  
 
 V1.0 Initial Goals
 -------------
