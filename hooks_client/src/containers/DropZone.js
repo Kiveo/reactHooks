@@ -39,8 +39,8 @@ const DropZone = ({ handleFile, children }) => {
     if (e.dataTransfer && e.dataTransfer.files) {
       // file size max: ~100mb
       if (e.dataTransfer.files[0].size > 123456799) { return setWarning('File is too large.'); }
-      // check for pre-exiting file in fileArray
-      if ((fileArray.length > 1) && fileArray.filter(fn => fn.name === e.dataTransfer.files[0].name).length >= 1) {
+      // check for duplicate file in fileArray
+      if ((fileArray.length >= 1) && fileArray.filter(fn => fn.name === e.dataTransfer.files[0].name).length >= 1) {
         return setWarning('Warning: File already selected');
       }
       setFileArray([...fileArray, e.dataTransfer.files[0]]);
