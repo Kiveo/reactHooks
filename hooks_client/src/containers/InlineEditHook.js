@@ -66,6 +66,7 @@ const InlineEditHook = ({ initialValue, handleConfirm, handleChange, handleRejec
 
   const handleBlur = () => {
     setActiveCursor(false);
+    setFocusState(false);
   };
 
   // -- RENDER --
@@ -76,12 +77,11 @@ const InlineEditHook = ({ initialValue, handleConfirm, handleChange, handleRejec
   </Fragment>
   );
 
+  // TODO: make field un-focused after click outside & edits have been made
   return (
     <div
       className="edit-input--inline"
       onMouseEnter={!focusState ? enableFocus : null}
-// TODO: add gate for if input field is active
-      onMouseLeave={(focusState && !activeCursor && !focusFireDisabled) ? handleConfirmEvent : null}
     >
       <input
         ref={inputRef}
@@ -90,7 +90,7 @@ const InlineEditHook = ({ initialValue, handleConfirm, handleChange, handleRejec
         defaultValue={storedValue}
         onChange={handleChangeEvent}
         onFocus={handleFocus}
-        onBlur={activeCursor ? handleBlur : null}
+        onBlur={handleBlur}
         style={focusState ? styles.focusStyle : styles.blurStyle}
       />
       {renderButtons}
