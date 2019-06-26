@@ -4,6 +4,7 @@ import DropzoneArea from './containers/DropzoneArea';
 import TopNav from './components/nav/TopNav';
 import NoMatch from './components/nav/NoMatch';
 import UsersNav from './containers/UsersNav';
+import EditForm from './containers/EditForm';
 import Home from './containers/Home';
 import './App.css';
 
@@ -13,6 +14,7 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/upload" component={DropzoneArea} />
+      <Route exact path="/edit-form" component={EditForm} />
       <Route path="/users" component={UsersNav} />
       <Route component={NoMatch} />
     </Switch>

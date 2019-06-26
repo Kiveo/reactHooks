@@ -13,6 +13,9 @@ function TopNav() {
             <Link to="/upload">Upload</Link>
           </li>
           <li>
+            <Link to="/edit-form">Create&Edit Form</Link>
+          </li>
+          <li>
             <Link to="/users">Users</Link>
           </li>
         </ul>
