@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 /**
 |--------------------------------------------------
 * This component is designed to act as an inline-edit field that can accept or reject changes
-* initialValue prop is passed in to display prior data
-* *handleConfirm prop should be used for API calls
-* focusFireDisabled can be set to true to disable onMouseLeave triggering handleConfirm/API
+* * initialValue prop is passed in to display prior data
+* * handleConfirm prop should be used for API calls
+* focusFireDisabled can be set to true to disable outside-click triggering handleConfirm
 * handleChange & handleReject props are for advanced functionality/validation/refactoring options
+* propRef can be passed in for more specific outside-click-region selection
 |--------------------------------------------------
 */
 
@@ -18,20 +19,43 @@ const styles = {
 };
 
 /* COMPONENT */
-const InlineEditHook = ({ initialValue, handleConfirm, handleChange, handleReject, focusFireDisabled }) => {
-// -- STATE & REF --
+const InlineEditHook = ({ initialValue, handleConfirm, handleChange, handleReject, focusFireDisabled, propRef }) => {
+  /* -- STATE & REF -- */
   const [storedValue, setStoredValue] = useState();
   const [newValue, setNewValue] = useState();
   const [focusState, setFocusState] = useState(false);
   const [activeCursor, setActiveCursor] = useState(false);
   const inputRef = useRef();
+  const divRef = useRef();
 
-  // -- LIFECYCLE --
+  /* -- LIFECYCLE METHODS -- */
+  // this hook will store whatever initial value is passed in. Used for canceling/reverting input
   useEffect(() => {
     setStoredValue(initialValue);
   }, [initialValue]);
 
-  // -- HANDLERS --
+  // this hook setups up (&cleans up) click listener, when input is focused
+  useEffect(() => {
+    if (focusFireDisabled) { return null; } // escape if user disabled outside click feature
+    const domTarget = propRef || document; // passed in Ref can be used instead of entire document.
+    const outsideClickListener = (e) => {
+      if (divRef.current.contains(e.target)) { return; }
+      if (!divRef.current.contains(e.target)) {
+        handleConfirm(inputRef.current.value);
+        setActiveCursor(false);
+        setFocusState(false);
+      }
+    };
+
+    if (activeCursor) {
+      domTarget.addEventListener('mousedown', outsideClickListener);
+    } else { domTarget.removeEventListener('mousedown', outsideClickListener); }
+
+    // return arrow function ~ componentWillUnmount
+    return () => { domTarget.removeEventListener('mousedown', outsideClickListener); };
+  }, [activeCursor, propRef, focusFireDisabled, handleConfirm]);
+
+  /* -- HANDLERS -- */
   const handleConfirmEvent = () => {
     if (newValue && newValue !== initialValue) {
       handleConfirm(newValue);
@@ -49,7 +73,7 @@ const InlineEditHook = ({ initialValue, handleConfirm, handleChange, handleRejec
     setFocusState(false);
   };
 
-  // Do not use handleChange prop funcs that use API calls. Use handleConfirm for API calls.
+  // handleChange is for non-primary functionality, like validation. Use handleConfirm for API.
   const handleChangeEvent = (e) => {
     if (handleChange) { handleChange(e.target.value); }
     setNewValue(e.target.value);
@@ -64,23 +88,19 @@ const InlineEditHook = ({ initialValue, handleConfirm, handleChange, handleRejec
     setActiveCursor(true);
   };
 
-  const handleBlur = () => {
-    setActiveCursor(false);
-    setFocusState(false);
-  };
-
-  // -- RENDER --
+  /* -- RENDER LOGIC -- */
   const renderButtons = focusState && (
-  <Fragment>
-    <button onClick={handleConfirmEvent} type="button">Confirm</button>
-    <button onClick={handleRejectEvent} type="button">Cancel</button>
-  </Fragment>
+    <Fragment>
+      <button onClick={handleConfirmEvent} type="button">Confirm</button>
+      <button onClick={handleRejectEvent} type="button">Cancel</button>
+    </Fragment>
   );
 
-  // TODO: make field un-focused after click outside & edits have been made
+  /* -- RENDER -- */
   return (
     <div
       className="edit-input--inline"
+      ref={divRef}
       onMouseEnter={!focusState ? enableFocus : null}
     >
       <input
@@ -90,7 +110,6 @@ const InlineEditHook = ({ initialValue, handleConfirm, handleChange, handleRejec
         defaultValue={storedValue}
         onChange={handleChangeEvent}
         onFocus={handleFocus}
-        onBlur={handleBlur}
         style={focusState ? styles.focusStyle : styles.blurStyle}
       />
       {renderButtons}
@@ -104,12 +123,14 @@ InlineEditHook.propTypes = {
   handleReject: PropTypes.func,
   handleChange: PropTypes.func,
   focusFireDisabled: PropTypes.bool,
+  propRef: PropTypes.objectOf(PropTypes.object),
 };
 
 InlineEditHook.defaultProps = {
   handleReject: null,
   handleChange: null,
   focusFireDisabled: false,
+  propRef: null,
 };
 
 export default InlineEditHook;
