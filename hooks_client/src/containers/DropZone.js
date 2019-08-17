@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import uploadIcon from '../assets/images/cloudUpload.png';
 import Attachment from './Attachment';
 
-// TODO add fetch/xml requests to upload/delete files on an API
+// TODO add fetch/xml requests to upload/delete files on an API (must have supporting API)
 const DropZone = ({ handleFile, children }) => {
   // -- State --
   const [fileArray, setFileArray] = useState([]);
