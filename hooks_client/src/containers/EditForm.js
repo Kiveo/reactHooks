@@ -19,6 +19,7 @@ const EditForm = () => {
 
   // -- RENDER --
   const renderField = editMode
+    // if not in edit mode, render a form. if in edit mode, render an inline-edit field
     ? (
       <InlineEditHook
         initialValue={parentState}
@@ -38,9 +39,8 @@ const EditForm = () => {
 
   return (
     <Fragment>
-      {console.log('create mode: ', !editMode)}
-      {console.log('edit mode: ', editMode)}
       <h1>Create & Edit Form</h1>
+      <p>Use the form to create a name. After submitting, hover over name to edit the value.</p>
       {renderField}
     </Fragment>
   );
