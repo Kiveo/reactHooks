@@ -12,8 +12,10 @@ import './App.css';
 // May move theme to its own file
 const customTheme = {
   font: 'Montserrat',
+  fontSecondary: 'Open Sans',
   primary: '#E85A4F',
   background: '#EAE7DC',
+  grayTone: '#8E8D8A',
 };
 
 // The 'App' itself
