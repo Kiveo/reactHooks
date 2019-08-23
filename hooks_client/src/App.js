@@ -14,8 +14,9 @@ const customTheme = {
   font: 'Montserrat',
   fontSecondary: 'Open Sans',
   primary: '#E85A4F',
+  alternate: '#E85A40',
   background: '#EAE7DC',
-  grayTone: '#8E8D8A',
+  grayTone: '#333',
 };
 
 // The 'App' itself

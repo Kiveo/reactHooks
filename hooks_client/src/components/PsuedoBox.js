@@ -18,15 +18,16 @@ const sample = keyframes`
 
 const PsuedoBox = styled.div`
   display: flex;
-  width: 40vw;
+  min-width: 40vw;
+  max-width: 500px;
   flex-direction: column;
   position: relative;
   text-align: center;
-  margin: auto;
+  margin: 1rem auto;
   padding: 1rem;
   justify-content: center;
   align-items: center;
-  background: rgba(100, 100, 100, 0.1);
+  /* background: rgba(100, 100, 100, 0.1); */
   /* background: rgba(250, 100, 100, 0.1); */
   border-radius: 2rem;
   /* create layer for visual effect  */
@@ -52,7 +53,7 @@ const PsuedoBox = styled.div`
   &:hover:after, &:hover:before {
     color: orangered;
     /* animation: ${sample} 4s linear infinite; */
-    box-shadow: inset 0 0 0 1px;
+    box-shadow: inset 0 0 0 3px;
   }
   &:hover {
     background: rgba(250,250,250,0.4);
