@@ -14,6 +14,7 @@ const customTheme = {
   font: 'Montserrat',
   fontSecondary: 'Open Sans',
   primary: '#E85A4F',
+  secondary: '#e9e9e9',
   alternate: '#E85A40',
   background: '#EAE7DC',
   grayTone: '#333',

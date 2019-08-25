@@ -3,7 +3,7 @@ import Title from './Title';
 import ThemeWrapper from './ThemeWrapper';
 import PsuedoBox from './PsuedoBox';
 import TextBlock from './TextBlock';
-import ToolTip from './ToolTip';
+import TipModal from './TipModal';
 
 const Home = () => (
   <ThemeWrapper>
@@ -12,7 +12,7 @@ const Home = () => (
       <Title>The Codex</Title>
       <TextBlock>
         {'Data gathered from '}
-        <ToolTip info="User Interface">UI</ToolTip>
+        <TipModal info="User Interface">UI</TipModal>
         {' specimens are stored here. '}
         {'Inspect the samples at your leisure.'}
       </TextBlock>
