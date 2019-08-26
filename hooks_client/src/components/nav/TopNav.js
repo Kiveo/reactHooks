@@ -4,27 +4,30 @@ import { Link } from 'react-router-dom';
 
 // Styled components to be used in component render/return
 const StyledUl = styled.ul`
+  padding: 0;
   list-style-type: none;
-  /* // TODO implement responsive styling */
-  /* display: flex; */
-  justify-content: space-between;
+  /* // TODO implement responsive styling media queries */
+  min-width: 40vw;
+  border-top: 2px solid ${props => props.theme.primary};
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   margin: 0 auto;
   background: ${props => props.theme.background};
-`;
+  @media(max-width: 600px) {
+    flex-direction: column;
+  }
+  `;
 
 const StyledLi = styled.li`
-  display: inline-block;
 `;
 
 const StyledLink = styled(Link)`
   display: block;
   padding: 1rem;
+  font-family: ${props => props.theme.fontSecondary};
   color: ${props => props.theme.linkColor};
-  /* // ? want to inherit bg? tbd */
-  /* background: ${props => props.theme.background}; */
   text-decoration: none;
-  font-family: ${props => props.theme.font};
-  font-weight: bold;
   letter-spacing: 0.2em;
   transition: all ease 0.5s;
   /* Setup for the hover changed psuedo-element */
@@ -33,10 +36,10 @@ const StyledLink = styled(Link)`
   &:after {
     content: '';
     width: 100%;
-    height: 2px;
+    height: 0px;
     background: ${props => props.theme.primary};
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     z-index: -1;
     transition: all ease 0.5s;
@@ -44,12 +47,26 @@ const StyledLink = styled(Link)`
 
   &:hover {
     color: ${props => props.theme.secondary};
-    
     &:after {
+      border-bottom-left-radius: 7px;
+      border-bottom-right-radius: 7px;
       height: 100%;
     } 
   };
   
+  @media(max-width: 600px) {
+    &:after {
+    content: '';
+    width: 5px;
+    height: 100%;
+    };
+    
+    &:hover:after {
+      width: 100%;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    };
+  }
 `;
 
 // component render/return
